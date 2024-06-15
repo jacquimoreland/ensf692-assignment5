@@ -1,6 +1,6 @@
 # web_data_app.py
 # June 2024
-# Modified by: STUDENT NAME
+# Modified by: Jacqui Moreland
 #
 # An simple program for demonstrating web applications using Flask and web scraping of data using Beautiful Soup.
 # Detailed specifications are provided via the Assignment 5 README file.
@@ -62,7 +62,7 @@ def hello_there(name):
 @app.route("/data")
 def book_data():
     """
-    Now let's take what we learned about Pandas and scrap some data from the internet!
+    Now let's take what we learned about Pandas and scrape some data from the internet!
     """
 
     # Web scraping can be against the Terms of Use. 
@@ -84,11 +84,16 @@ def book_data():
     book_data = pd.DataFrame(list(zip(titles, prices)), columns=['Titles','Prices'])    
     print(book_data)        # Print to the terminal as confirmation - only we can see this
 
+    # Add new column with the sale prices. 
+    book_data["Sale Prices"] = round(book_data["Prices"] * 0.75, 2)
+
     # Format and print the DataFrame using the html template provided in the templates subdirectory
     return render_template('template.html',  tables=[book_data.to_html(classes='data')], titles=book_data.columns.values)
 
 @app.route("/learn")
 def learn():
     # Return a string the describes one thing you learned in ENSF 692.
-    pass
+    s = "I have been exposed to numpy and pandas before but never really knew how to use them.\n\
+        I am very happy to say now that I can use both of them and know how they work."
+    return s
 
